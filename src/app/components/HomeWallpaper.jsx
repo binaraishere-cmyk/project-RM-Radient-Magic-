@@ -1,9 +1,12 @@
 "use client"
 import { useEffect, useState } from "react"
+import { useRouter } from "next/navigation";
 
 export default function HomeWallpaper() {
-  const [photos, setPhotos] = useState([]);
-  let [keyword, setkeyword] = useState("minimalistwallpapers");
+  const [photos, setphotos] = useState([]);
+  const [keyword, setkeyword] = useState("minimalistwallpapers");
+  const [imgId, setimgId] = useState(null);
+  const router = useRouter();
 
   useEffect(() => {
     if (keyword) {
@@ -11,13 +14,29 @@ export default function HomeWallpaper() {
         headers: { Authorization: "zbD8A3v97JSn3i19QrKl4qcI1RvlwcHK1VlmS1B1DnIIrowYvaI11zi8" }
       })
         .then(res => res.json())
-        .then(data => setPhotos(data.photos || []));
+        .then(data => {
+          const results = data.photos || [];
+          setphotos(results);
+
+          // FIX: This now runs ONLY after data is received
+          if (results.length > 0) {
+            setimgId(results[0].id);
+          }
+        })
+        .catch(err => console.error("Fetch error:", err));
     }
   }, [keyword]);
+
+  const photoselect = (id) => {
+    // This will navigate to localhost:3000/Bigimg/[id]
+    router.push(`/Bigimg/${id}`);
+  };
 
   return (
     <div className="min-h-screen bg-[#020617] p-8">
       <div className="flex flex-col gap-10 max-w-[1600px] mx-auto">
+        
+        {/* Search Bar */}
         <div className="relative w-full max-w-xl mx-auto">
           <input
             placeholder="Search wallpapers..."
@@ -27,6 +46,7 @@ export default function HomeWallpaper() {
           />
         </div>
 
+        {/* Photos Grid */}
         <div className="flex flex-wrap gap-6 justify-center">
           {photos.map((p, index) => (
             <div
@@ -36,15 +56,20 @@ export default function HomeWallpaper() {
                 h-[450px] bg-white/5 backdrop-blur-sm`}
             >
               <img
+                onClick={() => photoselect(p.id)}
                 src={p.src.large}
-                alt={p.alt}
-                className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110 group-hover:rotate-1"
+                alt={p.id}
+                className="w-full h-full object-cover cursor-pointer transition-transform duration-1000 group-hover:scale-110 group-hover:rotate-1"
               />
 
               <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-8">
                 <p className="text-cyan-400 text-xs font-bold uppercase tracking-widest mb-1">Pexels Artist</p>
                 <h3 className="text-white text-2xl font-black italic truncate">{p.photographer}</h3>
-                <button className="mt-4 w-fit px-6 py-2.5 bg-white/10 backdrop-blur-md border border-white/20 rounded-full text-white text-xs font-bold hover:bg-cyan-500 hover:border-cyan-500 transition-all active:scale-95">
+                
+                <button 
+                  onClick={() => photoselect(p.id)}
+                  className="mt-4 w-fit px-6 py-2.5 bg-white/10 backdrop-blur-md border border-white/20 rounded-full text-white text-xs font-bold hover:bg-cyan-500 hover:border-cyan-500 transition-all active:scale-95"
+                >
                   VIEW FULL
                 </button>
               </div>
@@ -55,5 +80,5 @@ export default function HomeWallpaper() {
         </div>
       </div>
     </div>
-  )
+  );
 }
