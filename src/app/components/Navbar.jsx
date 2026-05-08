@@ -29,21 +29,18 @@ function Navbar() {
           </div>
 
           <div className="hidden md:flex absolute left-1/2 -translate-x-1/2 w-full max-w-xs px-4">
-            <div className="relative justify-baseline w-full">
-              <input 
-                placeholder="search..." 
-                className="w-full bg-white/5 border border-white/10 px-4 py-2 rounded-full text-sm focus:outline-none focus:border-cyan-500/50 transition-all text-center"
-              />
-            </div>
+          
+           
+
           </div>
 
           <div className="flex items-center gap-6">
             <div className="hidden md:flex items-center gap-6">
               <Link 
-                href="/create" 
+                href="/Searching" 
                 className="text-sm font-semibold transition-all duration-300 hover:text-blue-400 hover:scale-110 text-white"
               >
-                placeholder
+                search
               </Link>
               
               <Link 

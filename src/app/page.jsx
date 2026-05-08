@@ -1,6 +1,7 @@
 "use client"
 
 import HeroSection from "./components/HeroSection";
+import HomeWallpaper from "./components/HomeWallpaper"
 
 
 function Page() {
@@ -17,13 +18,17 @@ function Page() {
 <div className="bg-gradient-to-b from-[#020617] via-[#051125] to-[#0a192f]">
 <div className="w-full h-1 animate-pulse  inset-0 bg-gradient-to-r from-transparent via-cyan-500 to-transparent opacity-50"></div>
 
+{/* the wallpaper section :) */}
 <div>
   
+<HomeWallpaper />
 
 
 </div>
 
-</div></div>
+</div>
+
+</div>
 
     </div>
   )
