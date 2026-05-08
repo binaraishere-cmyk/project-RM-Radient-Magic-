@@ -1,6 +1,6 @@
 import GlassBtn from "./GlassBtn";
 import HamBurgerMenu from "./HamBurgerMenu.jsx";
-
+import Link from "next/link";
 
 const HeroSection = () => {
     return (
@@ -32,7 +32,7 @@ const HeroSection = () => {
                     {/* Chilled Action Buttons */}
                     <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
 
-                        <GlassBtn>Explore</GlassBtn>
+                       <Link href="/Searching"><GlassBtn>Explore</GlassBtn></Link>
 
 
                     </div>

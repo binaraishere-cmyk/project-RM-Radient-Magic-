@@ -18,7 +18,7 @@ export default function HomeWallpaper() {
           const results = data.photos || [];
           setphotos(results);
 
-          // FIX: This now runs ONLY after data is received
+        
           if (results.length > 0) {
             setimgId(results[0].id);
           }
@@ -28,8 +28,7 @@ export default function HomeWallpaper() {
   }, [keyword]);
 
   const photoselect = (id) => {
-    // This will navigate to localhost:3000/Bigimg/[id]
-    router.push(`/Bigimg/${id}`);
+    router.push(`/BigImg/${id}`);
   };
 
   return (
